@@ -6,6 +6,52 @@ df=pd.read_csv('Imports_Exports_Dataset.csv')
 
 sdset = df.sample(n = 3001, random_state = 55051)
 
+# Page configuration
+st.set_page_config(
+    page_title="Import-Export Dashboard",
+    page_icon="📦",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Page background color and custom CSS
+page_bg_color = """
+    <style>
+    body {
+        background-color: #e8f5e9;
+    }
+    .metric-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .metric-box {
+        padding: 15px;
+        margin: 5px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .metric-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333333;
+    }
+    .metric-value {
+        font-size: 20px;
+        color: #007bff;
+    }
+    .metric-delta {
+        color: #ff6b6b;
+    }
+    </style>
+"""
+st.markdown(page_bg_color, unsafe_allow_html=True)
+
+# Sidebar
+with st.sidebar:
+    st.title('📦 Import-Export Dashboard')
+
 # Assuming `sdset` contains your data
 revenue_data = sdset.groupby('Import_Export')['Value'].sum().reset_index()
 total_revenue = revenue_data['Value'].sum()
