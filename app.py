@@ -162,41 +162,6 @@ fig = px.bar(profitable_category,
 st.plotly_chart(fig)
 
 
-
-import pandas as pd
-import streamlit as st
-import plotly.express as px
-
-# Load the dataset
-df = pd.read_csv('Imports_Exports_Dataset.csv')
-sdset = df.sample(n=3001, random_state=55051)
-
-# Sidebar filter for country selection
-country_options = sdset['Country'].unique()
-selected_country = st.selectbox('Select Country:', ['All'] + list(country_options))
-
-# Filter data based on the selected country
-if selected_country != 'All':
-    filtered_data = sdset[sdset['Country'] == selected_country]
-else:
-    filtered_data = sdset
-
-# Count the payment terms
-payment_data = filtered_data['Payment_Terms'].value_counts().reset_index()
-payment_data.columns = ['Payment_Terms', 'Count']
-
-# Create a pie chart using Plotly Express
-fig = px.pie(payment_data, 
-             names='Payment_Terms', 
-             values='Count', 
-             title=f'Most Preferred Payment Terms ({selected_country})', 
-             color_discrete_sequence=px.colors.sequential.Plasma)
-
-# Display the pie chart in Streamlit
-st.plotly_chart(fig)
-
-
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
